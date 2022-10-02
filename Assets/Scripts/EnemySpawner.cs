@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
                     (
                         currentWave.GetEnemyPrefab(i), // get enemy at index
                         currentWave.GetStartingWaypoint().position, // get its position
-                        Quaternion.identity, // no rotation
+                        Quaternion.Euler(0,0,180), // 180 rotation so enemies face downwards
                         transform // transform of the parent (the Enemy Spawner itself)
                     ); 
                     yield return new WaitForSeconds(currentWave.GetRandomSpawnTime()); // Coroutine for our customised varied spawn times

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Holds the amount of health that the object this is attached to
+// Only takes damage if the other object is a DamageDealer
 
 public class Health : MonoBehaviour
 {
