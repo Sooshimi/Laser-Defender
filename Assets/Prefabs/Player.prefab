@@ -272,6 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   hitEffect: {fileID: 1139620165840286699, guid: e0f3f2d6d47c081498c8790e4024dc31, type: 3}
+  applyCameraShake: 1
 --- !u!114 &1994040217431396777
 MonoBehaviour:
   m_ObjectHideFlags: 0

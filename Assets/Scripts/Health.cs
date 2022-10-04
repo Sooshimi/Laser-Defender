@@ -5,11 +5,21 @@ using UnityEngine;
 // Holds the amount of health that the object this is attached to
 // Only takes damage if the other object is a DamageDealer
 // Instantiates particle effects when hit
+// Camerashake when hit
 
 public class Health : MonoBehaviour
 {
     [SerializeField] int health = 50;
     [SerializeField] ParticleSystem hitEffect;
+
+    [SerializeField] bool applyCameraShake; // camerashake only for player
+    CameraShake cameraShake;
+
+    void Awake() 
+    {
+        // Camera.main already has a FindObjectOfType built into it
+        cameraShake = Camera.main.GetComponent<CameraShake>();
+    }
 
     // check if the other object is a damage dealer, and if it is, this object takes damage
     void OnTriggerEnter2D(Collider2D other) 
@@ -22,6 +32,7 @@ public class Health : MonoBehaviour
         {
             TakeDamage(damageDealer.GetDamage());
             PlayHitEffect();
+            ShakeCamera();
             damageDealer.Hit();
         }
     }
@@ -44,6 +55,14 @@ public class Health : MonoBehaviour
 
             // destroy particle with a delay of the lifetime of the particle effect
             Destroy(instance.gameObject, instance.main.duration + instance.main.startLifetime.constantMax);
+        }
+    }
+
+    void ShakeCamera()
+    {
+        if (cameraShake != null && applyCameraShake)
+        {
+            cameraShake.Play();
         }
     }
 }
