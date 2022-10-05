@@ -15,10 +15,13 @@ public class Health : MonoBehaviour
     [SerializeField] bool applyCameraShake; // camerashake only for player
     CameraShake cameraShake;
 
+    AudioPlayer audioPlayer;
+
     void Awake() 
     {
         // Camera.main already has a FindObjectOfType built into it
         cameraShake = Camera.main.GetComponent<CameraShake>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
     // check if the other object is a damage dealer, and if it is, this object takes damage
@@ -32,6 +35,7 @@ public class Health : MonoBehaviour
         {
             TakeDamage(damageDealer.GetDamage());
             PlayHitEffect();
+            audioPlayer.PlayDamageClip();
             ShakeCamera();
             damageDealer.Hit();
         }
