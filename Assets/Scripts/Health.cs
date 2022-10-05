@@ -6,9 +6,12 @@ using UnityEngine;
 // Only takes damage if the other object is a DamageDealer
 // Instantiates particle effects when hit
 // Camerashake when hit
+// Adds score for every enemy destroyed
 
 public class Health : MonoBehaviour
 {
+    [SerializeField] bool isPlayer; // for scoring system. Set as true for player in Unity Inspector
+    [SerializeField] int score = 50;
     [SerializeField] int health = 50;
     [SerializeField] ParticleSystem hitEffect;
 
@@ -16,12 +19,14 @@ public class Health : MonoBehaviour
     CameraShake cameraShake;
 
     AudioPlayer audioPlayer;
+    ScoreKeeper scoreKeeper;
 
     void Awake() 
     {
         // Camera.main already has a FindObjectOfType built into it
         cameraShake = Camera.main.GetComponent<CameraShake>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
 
     // check if the other object is a damage dealer, and if it is, this object takes damage
@@ -41,14 +46,28 @@ public class Health : MonoBehaviour
         }
     }
 
+    public int GetHealth()
+    {
+        return health;
+    }
+
     void TakeDamage(int damage)
     {
         health -= damage;
 
         if (health <= 0)
             {
-                Destroy(gameObject);
+                Die();
             }
+    }
+
+    void Die()
+    {
+        if (!isPlayer)
+        {
+            scoreKeeper.ModifyScore(score);
+        }
+        Destroy(gameObject);
     }
 
     void PlayHitEffect()
