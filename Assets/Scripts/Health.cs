@@ -7,6 +7,7 @@ using UnityEngine;
 // Instantiates particle effects when hit
 // Camerashake when hit
 // Adds score for every enemy destroyed
+// When player dies, goes to Game Over screen
 
 public class Health : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class Health : MonoBehaviour
 
     AudioPlayer audioPlayer;
     ScoreKeeper scoreKeeper;
+    LevelManager levelManager;
 
     void Awake() 
     {
@@ -27,6 +29,7 @@ public class Health : MonoBehaviour
         cameraShake = Camera.main.GetComponent<CameraShake>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
     // check if the other object is a damage dealer, and if it is, this object takes damage
@@ -63,9 +66,13 @@ public class Health : MonoBehaviour
 
     void Die()
     {
-        if (!isPlayer)
+        if (!isPlayer) // modify score if it's an enemy which dies
         {
             scoreKeeper.ModifyScore(score);
+        }
+        else // goes to Game Over scene if player dies
+        {
+            levelManager.LoadGameOver();
         }
         Destroy(gameObject);
     }
