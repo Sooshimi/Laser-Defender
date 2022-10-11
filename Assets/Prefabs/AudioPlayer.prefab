@@ -48,7 +48,7 @@ MonoBehaviour:
   shootingClip: {fileID: 8300000, guid: 4e5387bc2e9445848b366df988b9bc68, type: 3}
   shootingVolume: 0.1
   damageClip: {fileID: 8300000, guid: a94c99f4f86024f429b1f461394d8358, type: 3}
-  damageVolume: 0.3
+  damageVolume: 0.2
 --- !u!82 &1270208747596365945
 AudioSource:
   m_ObjectHideFlags: 0
